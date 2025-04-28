@@ -100,7 +100,6 @@ def calculate_demand(input: DemandRequest):
     except Exception as e:
         return {"error": str(e)}
 
-app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
@@ -109,6 +108,3 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-@app.post("/calculate_demand")
-async def calculate_demand(request: DemandRequest):
