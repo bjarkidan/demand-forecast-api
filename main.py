@@ -1,3 +1,4 @@
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 from pydantic import BaseModel
 import pandas as pd
@@ -98,3 +99,16 @@ def calculate_demand(input: DemandRequest):
 
     except Exception as e:
         return {"error": str(e)}
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins for now (can restrict later)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.post("/calculate_demand")
+async def calculate_demand(request: DemandRequest):
